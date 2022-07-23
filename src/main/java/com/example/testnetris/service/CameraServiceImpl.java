@@ -2,8 +2,8 @@ package com.example.testnetris.service;
 
 
 import com.example.testnetris.exchange.CamerasDataUrl;
-import com.example.testnetris.exchange.SourceDataUrl;
-import com.example.testnetris.exchange.TokenDataUrl;
+import com.example.testnetris.exchange.SourceData;
+import com.example.testnetris.exchange.TokenData;
 import com.example.testnetris.exchange.model.Camera;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +57,7 @@ public class CameraServiceImpl implements CameraService {
         Object objects = responseEntity.getBody();
 
         ObjectMapper mapper = new ObjectMapper();
-        SourceDataUrl convertValue = mapper.convertValue(objects, SourceDataUrl.class);
+        SourceData convertValue = mapper.convertValue(objects, SourceData.class);
         cameras.get(id).setId(id);
         cameras.get(id).setUrlType(convertValue.getUrlType());
         cameras.get(id).setVideoUrl(convertValue.getVideoUrl());
@@ -68,7 +68,7 @@ public class CameraServiceImpl implements CameraService {
         Object objects = responseEntity.getBody();
 
         ObjectMapper mapper = new ObjectMapper();
-        TokenDataUrl convertValue = mapper.convertValue(objects, TokenDataUrl.class);
+        TokenData convertValue = mapper.convertValue(objects, TokenData.class);
         cameras.get(id).setTtl(convertValue.getTtl());
         cameras.get(id).setValue(convertValue.getValue());
     }

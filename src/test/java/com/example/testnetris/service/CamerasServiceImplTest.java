@@ -2,8 +2,8 @@ package com.example.testnetris.service;
 
 
 import com.example.testnetris.exchange.CamerasDataUrl;
-import com.example.testnetris.exchange.SourceDataUrl;
-import com.example.testnetris.exchange.TokenDataUrl;
+import com.example.testnetris.exchange.SourceData;
+import com.example.testnetris.exchange.TokenData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +57,7 @@ class CamerasServiceImplTest {
         Object objects = responseEntity.getBody();
 
         ObjectMapper mapper = new ObjectMapper();
-        SourceDataUrl convertValue = mapper.convertValue(objects, SourceDataUrl.class);
+        SourceData convertValue = mapper.convertValue(objects, SourceData.class);
 
         assertThat(convertValue.getUrlType(), is("LIVE"));
         assertThat(convertValue.getVideoUrl(), is("rtsp://127.0.0.1/1"));
@@ -69,7 +69,7 @@ class CamerasServiceImplTest {
         Object objects = responseEntity.getBody();
 
         ObjectMapper mapper = new ObjectMapper();
-        TokenDataUrl convertValue = mapper.convertValue(objects, TokenDataUrl.class);
+        TokenData convertValue = mapper.convertValue(objects, TokenData.class);
         assertThat(convertValue.getValue(), is("fa4b588e-249b-11e9-ab14-d663bd873d93"));
         assertThat(convertValue.getTtl(), is(120));
     }
