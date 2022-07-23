@@ -1,12 +1,11 @@
 package com.example.testnetris.service;
 
-import com.example.testnetris.exchange.CamerasDataUrl;
 import com.example.testnetris.exchange.model.Camera;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface CameraService {
 
-    List<Camera> getAllCameras();
+    Collection<Camera> getAllCameras();
 
 }

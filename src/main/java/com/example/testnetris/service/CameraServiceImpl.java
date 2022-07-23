@@ -6,13 +6,14 @@ import com.example.testnetris.exchange.SourceDataUrl;
 import com.example.testnetris.exchange.TokenDataUrl;
 import com.example.testnetris.exchange.model.Camera;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,16 +29,17 @@ public class CameraServiceImpl implements CameraService {
         this.restTemplate = restTemplate;
     }
 
-    @Cacheable(value = "cameras")
-    public List<Camera> getAllCameras() {
-        creatingConcurrentHashMapWithIdCameras();
+    @PostConstruct
+    private void creatingConcurrentHashMapWithIdCameras() {
+        getCamerasDataUrl().forEach(e -> cameras.put(e.getId(), Camera.builder().build()));
+    }
+    public Collection<Camera> getAllCameras() {
+        return cameras.values();
+    }
+    @Scheduled(fixedDelay = 5000)
+    private void cameraDataUpdates() {
         getCamerasDataUrl().forEach(e -> saveSourceData(e.getId(), e.getSourceDataUrl()));
         getCamerasDataUrl().forEach(e -> saveTokenData(e.getId(), e.getTokenDataUrl()));
-        return new ArrayList<>(cameras.values());
-    }
-
-    private void creatingConcurrentHashMapWithIdCameras(){
-        getCamerasDataUrl().forEach(e -> cameras.put(e.getId(), Camera.builder().build()));
     }
 
     private List<CamerasDataUrl> getCamerasDataUrl() {
