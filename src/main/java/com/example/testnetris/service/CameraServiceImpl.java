@@ -5,7 +5,7 @@ import com.example.testnetris.exchange.CamerasDataUrl;
 import com.example.testnetris.exchange.SourceData;
 import com.example.testnetris.exchange.TokenData;
 import com.example.testnetris.exchange.model.Camera;
-import com.example.testnetris.exeptions.CameraDataExeption;
+import com.example.testnetris.exceptions.CameraDataException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -45,9 +45,9 @@ public class CameraServiceImpl implements CameraService {
             return submit.get();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new CameraDataExeption("Поток прервался " + e.getMessage());
+            throw new CameraDataException("Поток прервался " + e.getMessage());
         } catch (ExecutionException e) {
-            throw new CameraDataExeption("Исключение при попытке получить результат задачи " + e.getMessage());
+            throw new CameraDataException("Исключение при попытке получить результат задачи " + e.getMessage());
         }
     }
 
