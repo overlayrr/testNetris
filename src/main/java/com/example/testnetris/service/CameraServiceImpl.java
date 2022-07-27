@@ -39,7 +39,7 @@ public class CameraServiceImpl implements CameraService {
         getCamerasDataUrl().forEach(e -> cameras.put(e.getId(), Camera.builder().build()));
     }
 
-    public Collection<Camera> getAllCameras(){
+    public Collection<Camera> getAllCameras() {
         Future<Collection<Camera>> submit = threadPool.submit(this::mergingOfCameraData);
         try {
             return submit.get();

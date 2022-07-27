@@ -23,7 +23,7 @@ public class CameraDataControllers {
 
     @SneakyThrows
     @GetMapping
-    public Collection<Camera> getAllCamerasData(){
-       return camerasService.getAllCameras();
+    public Collection<Camera> getAllCamerasData() {
+        return camerasService.getAllCameras();
     }
 }
